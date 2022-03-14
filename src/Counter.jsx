@@ -1,5 +1,5 @@
-// import the useState hook from react
-import React, { useState } from 'react'
+// import the useState and useEffect hooks from react
+import React, { useState, useEffect } from 'react'
 
 // const myObj = {
 //   'key1': 1,
@@ -41,6 +41,25 @@ export default function Counter() {
   //     [e.target.name]: e.target.value
   //   })
   // }
+  // useEffect takes two args: a callback function (needed) and a dependancy array (optional)
+  // this useEffect happens on every lifecycle...
+  useEffect(() => {
+    console.log('the component is about to render...')
+    // only needed for cleanup (anythign mounted on the document/window or using web api)
+    // return () => console.log('the component is preparing for the next lifecycle/unmounting (end of lifecycle)')
+  })
+
+  // ...unless you use a 'dependancy array'
+  useEffect(() => {
+    //  if you use props or state in here, it needs to go into the dependacy array
+    console.log('the count state or the msg state value has been updated, the component is about to render')
+  }, [count, msg]) // dependancy array goes down here, you put state values in it
+
+  // ...or your can give it an empty 'dependancy array' and use effect will only run on the first lifecycle
+  useEffect(() => {
+    console.log('the page has loaded and is about to render!')
+  }, []) // empty dependacy array mean this runs only on page load
+ 
   const handleSubmit = e => {
     e.preventDefault()
     setMsg('good job submitting the form!')
